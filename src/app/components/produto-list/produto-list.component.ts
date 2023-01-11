@@ -1,15 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { ProdutoService } from '../../services/produto.service';
+import { Produto } from '../../model/produto';
 
 @Component({
   selector: 'app-produto-list',
-  templateUrl: './produto-list.component.html',
+  templateUrl: './produto-list-table.component.html',
+  // templateUrl: './produto-list.component.html',
   styleUrls: ['./produto-list.component.css']
 })
 export class ProdutoListComponent implements OnInit {
 
-  constructor() { }
+  produtos: Produto[] = [];
+
+  constructor(private produtoService: ProdutoService) { }
 
   ngOnInit(): void {
+    this.listProdutos();
+  }
+  listProdutos() {
+    this.produtoService.getProdutoList().subscribe(
+      data => {
+        this.produtos = data;
+      }
+    );
   }
 
 }

@@ -7,7 +7,7 @@ export class Produto {
     public unidadePreco: number,
     public imageUrl: string,
     public ativo: boolean,
-    public unidadesEmEstoque: number,
+    public unidadeEmEstoque: number,
     public dataCriacao: Date,
     public ultimoUpdated: Date
   ) {
