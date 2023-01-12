@@ -1,0 +1,19 @@
+<div class="main-content">
+
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div *ngFor="let element of produtos" class="col-md-3">
+          <div class="product-box">
+            <img src="{{ element.imageUrl }}" alt="Imagem do produto">
+            <h1>{{ element.nome }}</h1>
+            <div class="price">{{ element.unidadePreco | currency:'BRL'}}</div>
+            <a href="#" class="primary-btn">Adicionar ao carrinho</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
