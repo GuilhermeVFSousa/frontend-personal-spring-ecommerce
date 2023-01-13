@@ -10,18 +10,7 @@
         />
       </a>
     </div>
-    <div class="menu-sidebar-content js-scrollbar1">
-      <nav class="navbar-sidebar">
-        <ul class="list-unstyled navbar-list">
-          <li>
-            <a routerLink="/categoria/1" routerLinkActive="active-link">Books</a>
-          </li>
-          <li>
-            <a routerLink="/categoria/2" routerLinkActive="active-link">Coffee Mugs</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <app-produto-categoria-menu></app-produto-categoria-menu>
   </aside>
   <!-- END MENU SIDEBAR-->
 
@@ -37,13 +26,13 @@
                 class="au-input au-input-xl"
                 type="text"
                 name="search"
-                placeholder="Search for data ..."
+                placeholder="Pesquise pelo produto..."
               />
-              <button class="au-btn-submit" type="submit">Search</button>
+              <button class="au-btn-submit" type="submit">Buscar</button>
             </form>
             <div class="cart-area d-n">
               <a href="shopping-detail.html">
-                <div class="total">19.22 <span> 2</span></div>
+                <div class="total">R$19,22 <span> 2</span></div>
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               </a>
             </div>

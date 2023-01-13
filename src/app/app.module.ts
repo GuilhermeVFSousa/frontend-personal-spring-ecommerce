@@ -8,14 +8,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProdutoService } from './services/produto.service';
 
 import ptBr from '@angular/common/locales/pt';
-import { registerLocaleData } from '@angular/common'
+import { registerLocaleData } from '@angular/common';
+import { ProdutoCategoriaMenuComponent } from './components/produto-categoria-menu/produto-categoria-menu.component'
 
 registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProdutoListComponent
+    ProdutoListComponent,
+    ProdutoCategoriaMenuComponent
   ],
   imports: [
     BrowserModule,
