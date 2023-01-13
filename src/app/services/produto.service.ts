@@ -13,8 +13,9 @@ export class ProdutoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProdutoList(): Observable<Produto[]> {
-    return this.httpClient.get<GetResponse>(`${API_CONFIG.baseUrl}/api/produtos`).pipe(
+  getProdutoList(categoriaId: number): Observable<Produto[]> {
+
+    return this.httpClient.get<GetResponse>(`${API_CONFIG.baseUrl}/api/produtos/search/findByCategoriaId?id=${categoriaId}`).pipe(
       map(response => response._embedded.produtos)
     )
   }
