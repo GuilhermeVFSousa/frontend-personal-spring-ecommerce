@@ -1,7 +1,9 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
-    <h4>Category: {{ currentCategoriaNome }}</h4>
+    <div *ngIf="produtos?.length !== 0">
+      <h4>Categoria: {{ currentCategoriaNome }}</h4>
         <hr>
+    </div>
 
     <div class="container-fluid">
       <div class="row">
@@ -13,6 +15,11 @@
             <div class="price">{{ element.unidadePreco | currency:'BRL'}}</div>
             <a href="#" class="primary-btn">Adicionar ao carrinho</a>
           </div>
+        </div>
+
+        <!-- Se não encontar nenhum produto, retornar uma mensagem-->
+        <div *ngIf="produtos?.length == 0" class="alert alert-warning col-md-12" role="alert">
+          Produto não encontrado
         </div>
 
       </div>

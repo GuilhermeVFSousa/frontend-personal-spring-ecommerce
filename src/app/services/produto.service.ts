@@ -13,17 +13,31 @@ export class ProdutoService {
   constructor(private httpClient: HttpClient) { }
 
   getProdutoList(categoriaId: number): Observable<Produto[]> {
+    const searchURL = `${API_CONFIG.baseUrl}/api/produtos/search/findByCategoriaId?id=${categoriaId}`
 
-    return this.httpClient.get<GetResponseProdutos>(`${API_CONFIG.baseUrl}/api/produtos/search/findByCategoriaId?id=${categoriaId}`).pipe(
+    return this.getProdutos(searchURL);
+  }
+
+  searchProdutos(theKeyword: string): Observable<Produto[]> {
+    const searchURL = `${API_CONFIG.baseUrl}/api/produtos/search/findByNomeContaining?nome=${theKeyword}`
+
+    return this.getProdutos(searchURL);
+  }
+
+  private getProdutos(searchURL: string): Observable<Produto[]> {
+    return this.httpClient.get<GetResponseProdutos>(searchURL).pipe(
       map(response => response._embedded.produtos)
-    )
+    );
   }
 
   getProdutoCategorias(): Observable<ProdutoCategoria[]> {
-    return this.httpClient.get<GetResponseProdutoCategoria>(`${API_CONFIG.baseUrl}/api/produto-categoria`).pipe(
+    const searchURL = `${API_CONFIG.baseUrl}/api/produto-categoria`
+
+    return this.httpClient.get<GetResponseProdutoCategoria>(searchURL).pipe(
       map(response => response._embedded.produtoCategoria)
     );
   }
+
 
 }
 

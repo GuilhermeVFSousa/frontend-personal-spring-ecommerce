@@ -9,7 +9,8 @@ import { ProdutoService } from './services/produto.service';
 
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-import { ProdutoCategoriaMenuComponent } from './components/produto-categoria-menu/produto-categoria-menu.component'
+import { ProdutoCategoriaMenuComponent } from './components/produto-categoria-menu/produto-categoria-menu.component';
+import { SearchComponent } from './components/search/search.component'
 
 registerLocaleData(ptBr);
 
@@ -17,7 +18,8 @@ registerLocaleData(ptBr);
   declarations: [
     AppComponent,
     ProdutoListComponent,
-    ProdutoCategoriaMenuComponent
+    ProdutoCategoriaMenuComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
