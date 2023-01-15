@@ -10,6 +10,12 @@ import { ProdutoCategoria } from '../model/produto-categoria';
 })
 export class ProdutoService {
 
+  getProduto(theProdutoId: number): Observable<Produto> {
+    const produtoURL = `${API_CONFIG.baseUrl}/api/produtos/${theProdutoId}`
+
+    return this.httpClient.get<Produto>(produtoURL);
+  }
+
   constructor(private httpClient: HttpClient) { }
 
   getProdutoList(categoriaId: number): Observable<Produto[]> {

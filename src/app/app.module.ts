@@ -10,7 +10,8 @@ import { ProdutoService } from './services/produto.service';
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { ProdutoCategoriaMenuComponent } from './components/produto-categoria-menu/produto-categoria-menu.component';
-import { SearchComponent } from './components/search/search.component'
+import { SearchComponent } from './components/search/search.component';
+import { ProdutoDetailsComponent } from './components/produto-details/produto-details.component'
 
 registerLocaleData(ptBr);
 
@@ -19,7 +20,8 @@ registerLocaleData(ptBr);
     AppComponent,
     ProdutoListComponent,
     ProdutoCategoriaMenuComponent,
-    SearchComponent
+    SearchComponent,
+    ProdutoDetailsComponent
   ],
   imports: [
     BrowserModule,
