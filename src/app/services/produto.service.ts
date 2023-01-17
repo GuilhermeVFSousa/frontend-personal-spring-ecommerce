@@ -10,13 +10,19 @@ import { ProdutoCategoria } from '../model/produto-categoria';
 })
 export class ProdutoService {
 
+  constructor(private httpClient: HttpClient) { }
+
   getProduto(theProdutoId: number): Observable<Produto> {
     const produtoURL = `${API_CONFIG.baseUrl}/api/produtos/${theProdutoId}`
 
     return this.httpClient.get<Produto>(produtoURL);
   }
 
-  constructor(private httpClient: HttpClient) { }
+  getProdutoListPaginate(thePage: number,thePageSize: number, categoriaId: number): Observable<GetResponseProdutos> {
+    const searchURL = `${API_CONFIG.baseUrl}/api/produtos/search/findByCategoriaId?id=${categoriaId}`+`&page=${thePage}&size=${thePageSize}`
+
+    return this.httpClient.get<GetResponseProdutos>(searchURL);
+  }
 
   getProdutoList(categoriaId: number): Observable<Produto[]> {
     const searchURL = `${API_CONFIG.baseUrl}/api/produtos/search/findByCategoriaId?id=${categoriaId}`
@@ -50,6 +56,12 @@ export class ProdutoService {
 interface GetResponseProdutos {
   _embedded: {
     produtos: Produto[]
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
   }
 }
 

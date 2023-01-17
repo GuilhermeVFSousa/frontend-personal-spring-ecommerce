@@ -13,8 +13,14 @@ export class ProdutoListComponent implements OnInit {
   produtos: Produto[] = [];
 
   currentCategoriaId: number = 1;
+  previousCategoriaId: number = 1;
   currentCategoriaNome: string = "";
   searchMode: boolean = false;
+
+  //novas propriedades para Pagination
+  thePageNumber: number = 1;
+  thePageSize: number = 10;
+  theTotalElements: number = 0;
 
   constructor(
     private produtoService: ProdutoService,
@@ -54,12 +60,24 @@ export class ProdutoListComponent implements OnInit {
      this.currentCategoriaNome = 'Books';
     }
 
+    // verificar se temos um id da categoria diferente do anterior para que o angular reutilize o componente caso esteja sendo visualizado no browser
+
+
+    // Caso possua um id de categoria diferente do anterior, setaremos o thePageNumber de volta a 1
+    if(this.previousCategoriaId != this.currentCategoriaId) {
+      this.thePageNumber = 1;
+    }
+
+    this.previousCategoriaId = this.currentCategoriaId;
+    console.log(`currentCategoriaId=${this.currentCategoriaId}`)
+
+
     // obter os produtos pelo id da categoria
-   this.produtoService.getProdutoList(this.currentCategoriaId).subscribe(
-     data => {
-       this.produtos = data;
-     }
-   );
+    this.produtoService.getProdutoListPaginate(this.thePageNumber - 1, this.thePageSize, this.currentCategoriaId)
+          .subscribe(data => {this.produtos = data._embedded.produtos
+                              this.thePageNumber = data.page.number + 1 // as paginações do spring são fornecidas a partir do 0
+                              this.thePageSize = data.page.size
+                              this.theTotalElements = data.page.totalElements});
   }
 
   handleSearchProdutos() {
