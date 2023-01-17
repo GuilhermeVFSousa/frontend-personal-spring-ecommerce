@@ -22,6 +22,8 @@ export class ProdutoListComponent implements OnInit {
   thePageSize: number = 5;
   theTotalElements: number = 0;
 
+  previousKeyword: string = "";
+
   constructor(
     private produtoService: ProdutoService,
     private route:  ActivatedRoute
@@ -61,8 +63,6 @@ export class ProdutoListComponent implements OnInit {
     }
 
     // verificar se temos um id da categoria diferente do anterior para que o angular reutilize o componente caso esteja sendo visualizado no browser
-
-
     // Caso possua um id de categoria diferente do anterior, setaremos o thePageNumber de volta a 1
     if(this.previousCategoriaId != this.currentCategoriaId) {
       this.thePageNumber = 1;
@@ -74,22 +74,22 @@ export class ProdutoListComponent implements OnInit {
 
     // obter os produtos pelo id da categoria
     this.produtoService.getProdutoListPaginate(this.thePageNumber - 1, this.thePageSize, this.currentCategoriaId)
-          .subscribe(data => {this.produtos = data._embedded.produtos
-                              this.thePageNumber = data.page.number + 1 // as paginações do spring são fornecidas a partir do 0
-                              this.thePageSize = data.page.size
-                              this.theTotalElements = data.page.totalElements});
+          .subscribe(this.procecssResult());
   }
 
   handleSearchProdutos() {
 
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
+    // se houver uma palavra diferente da anterior, definiremos o numero da página para 1
+    if(this.previousKeyword != theKeyword) {
+      this.thePageNumber = 1;
+    }
+    this.previousKeyword = theKeyword;
+    console.log(`keyword=${theKeyword}, thePageNumber=${this.thePageNumber}`);
+
     // realizando a busca por palavras
-    this.produtoService.searchProdutos(theKeyword).subscribe(
-      data => {
-        this.produtos = data;
-      }
-    )
+    this.produtoService.searchProdutosPaginate(this.thePageNumber - 1, this.thePageSize, theKeyword).subscribe(this.procecssResult());
 
   }
 
@@ -97,6 +97,15 @@ export class ProdutoListComponent implements OnInit {
     this.thePageSize = +pageSize; // "+" converte pageSize para number
     this.thePageNumber = 1;
     this.listProdutos();
+  }
+
+  procecssResult() {
+    return (data: any) => {
+      this.produtos = data._embedded.produtos;
+      this.thePageNumber = data.page.number + 1; // as paginações do spring são fornecidas a partir do 0
+      this.thePageSize = data.page.size;
+      this.theTotalElements = data.page.totalElements;
+    }
   }
 
 }
