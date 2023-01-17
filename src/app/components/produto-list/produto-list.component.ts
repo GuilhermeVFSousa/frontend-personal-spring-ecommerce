@@ -19,7 +19,7 @@ export class ProdutoListComponent implements OnInit {
 
   //novas propriedades para Pagination
   thePageNumber: number = 1;
-  thePageSize: number = 10;
+  thePageSize: number = 5;
   theTotalElements: number = 0;
 
   constructor(
@@ -91,6 +91,12 @@ export class ProdutoListComponent implements OnInit {
       }
     )
 
+  }
+
+  updatePageSize(pageSize: string) {
+    this.thePageSize = +pageSize; // "+" converte pageSize para number
+    this.thePageNumber = 1;
+    this.listProdutos();
   }
 
 }

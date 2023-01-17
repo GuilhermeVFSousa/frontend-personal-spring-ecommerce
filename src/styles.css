@@ -1044,3 +1044,18 @@ footer ul li{
       padding:8px 0
   }
 }
+
+ngb-pagination .page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #f05713;
+  border-color: #7e3312;
+  padding: 8px 16px;
+}
+
+ngb-pagination .page-item .page-link {
+  z-index: 3;
+  color: #f05713;
+  padding: 8px 16px;
+}
+

@@ -1,0 +1,8 @@
+ngb-pagination a.active{
+  background-color: #4CAF50;
+  color: white;
+}
+
+ngb-pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
