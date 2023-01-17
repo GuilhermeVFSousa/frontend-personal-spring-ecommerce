@@ -12,6 +12,7 @@ import { registerLocaleData } from '@angular/common';
 import { ProdutoCategoriaMenuComponent } from './components/produto-categoria-menu/produto-categoria-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProdutoDetailsComponent } from './components/produto-details/produto-details.component'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 registerLocaleData(ptBr);
 
@@ -26,7 +27,8 @@ registerLocaleData(ptBr);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [ProdutoService, {provide: LOCALE_ID, useValue: 'pt'}],
   bootstrap: [AppComponent]
