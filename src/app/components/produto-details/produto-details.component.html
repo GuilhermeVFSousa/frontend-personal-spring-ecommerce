@@ -4,7 +4,10 @@
 
     <h3>{{ produto.nome }}</h3>
     <div class="price">{{ produto.unidadePreco | currency:'BRL'}}</div>
-    <a (click)="addToCart()" class="primary-btn"> Adicionar ao carrinho</a>
+    <a (click)="addToCart()" class="primary-btn">
+      <div>Adicionar ao carrinho</div>
+      <div>Adicionar ao carrinho</div>
+    </a>
 
     <hr>
     <h4>Descrição</h4>

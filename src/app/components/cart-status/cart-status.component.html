@@ -1,7 +1,18 @@
 <div class="cart-area d-n">
-  <a href="shopping-detail.html">
-    <div class="total">{{ totalPrice | currency: 'BRL' }}
-      <span> {{ totalQuantity }}</span></div>
-    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+  <a href="shopping-detail.html" class="primary-btn-cart">
+    <div *ngIf="totalQuantity == 0">
+      <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #f05713;"> <span class="span-cart">Carrinho</span></i>
+    </div>
+    <div *ngIf="totalQuantity > 0">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      Total: <span style="font-weight: bold;">{{ totalPrice | currency: 'BRL' }}</span>
+    </div>
+    <div *ngIf="totalQuantity >= 1" style="font-weight: bold;">
+      <span style="font-weight: bold; font-size: 85%;"> {{ totalQuantity }}</span>
+      <span *ngIf="totalQuantity > 1" style="font-weight: bold; font-size: 85%"> produtos</span>
+      <span *ngIf="totalQuantity == 1 " style="font-weight: bold; font-size: 85%;"> produto</span>
+    </div>
+
+
   </a>
 </div>
