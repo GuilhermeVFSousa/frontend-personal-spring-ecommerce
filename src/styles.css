@@ -743,6 +743,7 @@ table.table.table-bordered th{
   border-color:#f05713!important
 }
 a.primary-btn{
+  cursor: pointer;
   background:#f05713;
   padding:7px 20px;
   text-align:center;
@@ -754,6 +755,7 @@ a.primary-btn{
   text-decoration:none;
 }
 a.primary-btn:hover{
+  cursor: pointer;
   background:#7e3312;
   color:#fff
 }
@@ -1057,5 +1059,9 @@ ngb-pagination .page-item .page-link {
   z-index: 3;
   color: #f05713;
   padding: 8px 16px;
+}
+
+.btn {
+  color: #f05713;
 }
 

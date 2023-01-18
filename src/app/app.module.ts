@@ -13,6 +13,7 @@ import { ProdutoCategoriaMenuComponent } from './components/produto-categoria-me
 import { SearchComponent } from './components/search/search.component';
 import { ProdutoDetailsComponent } from './components/produto-details/produto-details.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartStatusComponent } from './components/cart-status/cart-status.component';
 
 registerLocaleData(ptBr);
 
@@ -22,7 +23,8 @@ registerLocaleData(ptBr);
     ProdutoListComponent,
     ProdutoCategoriaMenuComponent,
     SearchComponent,
-    ProdutoDetailsComponent
+    ProdutoDetailsComponent,
+    CartStatusComponent
   ],
   imports: [
     BrowserModule,

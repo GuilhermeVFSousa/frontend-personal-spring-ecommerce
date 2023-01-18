@@ -19,7 +19,7 @@
               <h1>{{ element.nome }}</h1>
             </a>
             <div class="price">{{ element.unidadePreco | currency:'BRL'}}</div>
-            <a href="#" class="primary-btn">Adicionar ao carrinho</a>
+            <a (click)="addToCart(element)" class="primary-btn">Adicionar ao carrinho</a>
           </div>
         </div>
 
