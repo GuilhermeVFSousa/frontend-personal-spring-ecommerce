@@ -220,7 +220,7 @@ section{
 }
 
 input.au-input.au-input-xl{
-  border-radius:40px!important;
+  border-radius:5px!important;
   margin-right:15px
 }
 
@@ -298,8 +298,8 @@ input.au-input.au-input-xl{
   border:1px solid #b1491a;
   -webkit-border-radius:3px;
   -moz-border-radius:3px;
-  border-radius:43px;
-  background:#b1491a
+  border-radius:35px;
+  background:#9e0000
 }
 
 .au-btn-submit:hover{
@@ -526,7 +526,7 @@ input.au-input.au-input-xl{
   background:#fff
 }
 .main-content.page-m{
-  padding:10% 15%!important
+  padding:10% 30% 10% 5%
 }
 
 /*
@@ -605,7 +605,7 @@ input.au-input.au-input-xl{
 .input-space input[type=text]{
   width:100%;
   height:40px;
-  border-radius:30px;
+  border-radius:5px;
   outline:0;
   padding:10px;
   border:1px solid #ccc
@@ -613,7 +613,7 @@ input.au-input.au-input-xl{
 .input-space select{
   width:100%;
   height:40px;
-  border-radius:30px;
+  border-radius:5px;
   outline:0;
   padding:0 10px;
   border:1px solid #ccc
@@ -753,11 +753,18 @@ table.table.table-striped th{
 * ----------------------------
 */
 
-.btn-info{
+.btn.btn-info{
   color:#fff;
   background-color:#f05713!important;
   border-color:#f05713!important
 }
+
+.btn.btn-info:hover{
+  color:#fff;
+  background-color:#f56a2f!important;
+  border-color:#f05713!important
+}
+
 a.primary-btn{
   cursor: pointer;
   background:#f05713;
@@ -909,7 +916,7 @@ footer ul li{
       justify-content:center
   }
    .au-input-xl{
-      min-width:350px
+      min-width:550px
   }
     .logo{
       text-align:center

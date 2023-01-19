@@ -15,6 +15,8 @@ import { ProdutoDetailsComponent } from './components/produto-details/produto-de
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(ptBr);
 
@@ -26,13 +28,15 @@ registerLocaleData(ptBr);
     SearchComponent,
     ProdutoDetailsComponent,
     CartStatusComponent,
-    CartDetailsComponent
+    CartDetailsComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [ProdutoService, {provide: LOCALE_ID, useValue: 'pt'}],
   bootstrap: [AppComponent]
