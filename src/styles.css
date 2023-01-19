@@ -692,21 +692,27 @@ select{
 */
 
 .table{
-  margin:0
+  margin:0;
 }
-table.table.table-bordered{
-  border:1px solid #ccc;
-  background:#fff
+table.table.table-striped{
+  border:1px solid #f05713;
 }
-.table-bordered td,.table-bordered th{
-  border:1px solid #dee2e6
+.table-striped td,.table-striped th{
+  border:1px solid #f05713;
+
 }
-table.table.table-bordered th{
+table.table.table-striped thead{
   BACKGROUND:#f05713;
-  color:#fff;
   font-size:14px;
-  padding:7px
+  height: 50px;
+
 }
+
+table.table.table-striped th{
+  font-size:14px;
+  padding:7px;
+}
+
 .table-responsive{
   padding-right:1px
 }

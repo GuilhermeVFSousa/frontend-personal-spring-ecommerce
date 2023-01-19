@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProdutoListComponent } from './components/produto-list/produto-list.component';
 import { ProdutoDetailsComponent } from './components/produto-details/produto-details.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 const routes: Routes = [
+  {path: 'cart-details', component: CartDetailsComponent},
   {path: 'produtos/:id', component: ProdutoDetailsComponent},
   {path: 'search/:keyword', component: ProdutoListComponent},
   {path: 'categoria/:id/:nome', component: ProdutoListComponent},

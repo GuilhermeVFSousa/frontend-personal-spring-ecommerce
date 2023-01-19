@@ -14,6 +14,7 @@ import { SearchComponent } from './components/search/search.component';
 import { ProdutoDetailsComponent } from './components/produto-details/produto-details.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 registerLocaleData(ptBr);
 
@@ -24,7 +25,8 @@ registerLocaleData(ptBr);
     ProdutoCategoriaMenuComponent,
     SearchComponent,
     ProdutoDetailsComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    CartDetailsComponent
   ],
   imports: [
     BrowserModule,

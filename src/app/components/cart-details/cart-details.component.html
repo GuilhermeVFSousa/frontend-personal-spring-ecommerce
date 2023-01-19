@@ -1,0 +1,51 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div *ngIf="cartItems?.length == 0" class="alert alert-warning col-md-12" role="alert">
+        Carrinho vazio
+      </div>
+      <div *ngIf="cartItems.length > 0">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" width="20%">Imagem do Produto</th>
+              <th scope="col" width="50%">Detalhes</th>
+              <th scope="col" width="30%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let element of cartItems">
+              <td>
+                <img
+                  src="{{ element.imageUrl }}"
+                  style="width: 150px"/>
+
+              </td>
+              <td>
+                <p>{{ element.nome }}</p>
+                <p>{{ element.unidadePreco | currency:'BRL' }}</p>
+              </td>
+              <td>
+                <div class="items">
+                  <label>
+                    Quantidade: {{ element.quantidade }}
+                  </label>
+                </div>
+                <p class="mt-2">Subtotal: {{ element.quantidade * element.unidadePreco | currency: 'BRL' }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td style="font-weight: bold;">
+                <p>Quantidade de Produtos: {{ totalQuantity }}</p>
+                <p>Frete: Grátis</p>
+                <p>Valor Total: {{ totalPrice | currency: 'BRL' }}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
