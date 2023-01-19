@@ -1102,3 +1102,12 @@ ngb-pagination .page-item .page-link {
   color: #f05713;
 }
 
+.btn.btn-primary.btn-sm {
+  background-color: #f05713;
+  border-color: #f05713;;
+}
+
+.btn.btn-primary {
+  background-color: #f05713;
+}
+

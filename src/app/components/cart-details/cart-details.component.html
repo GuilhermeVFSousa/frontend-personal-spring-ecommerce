@@ -26,10 +26,34 @@
                 <p>{{ element.unidadePreco | currency:'BRL' }}</p>
               </td>
               <td>
+
                 <div class="items">
                   <label>
-                    Quantidade: {{ element.quantidade }}
+                    Quantidade:
                   </label>
+
+                  <div class="row no-gutters">
+
+                    <div class="col">
+                      <button class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+
+                    <div class="col ml-4 mr-2">
+                      {{ element.quantidade }}
+                    </div>
+
+                    <div class="col">
+                      <button class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
+
+                    <div class="col-8"></div>
+                    <div class="col-8"></div>
+
+                  </div>
                 </div>
                 <p class="mt-2">Subtotal: {{ element.quantidade * element.unidadePreco | currency: 'BRL' }}</p>
               </td>
