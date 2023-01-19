@@ -35,7 +35,9 @@
                   <div class="row no-gutters">
 
                     <div class="col">
-                      <button class="btn btn-primary btn-sm" href="#">
+                      <button
+                      class="btn btn-primary btn-sm"
+                      (click)="incrementQuantity(element)">
                         <i class="fas fa-plus"></i>
                       </button>
                     </div>
@@ -45,7 +47,9 @@
                     </div>
 
                     <div class="col">
-                      <button class="btn btn-primary btn-sm" href="#">
+                      <button
+                      class="btn btn-primary btn-sm"
+                      (click)="decrementQuantity(element)">
                         <i class="fas fa-minus"></i>
                       </button>
                     </div>
@@ -55,6 +59,11 @@
 
                   </div>
                 </div>
+                <button
+                class="btn btn-primary btn-sm mt-2"
+                (click)="remove(element)">
+                Remover
+                </button>
                 <p class="mt-2">Subtotal: {{ element.quantidade * element.unidadePreco | currency: 'BRL' }}</p>
               </td>
             </tr>

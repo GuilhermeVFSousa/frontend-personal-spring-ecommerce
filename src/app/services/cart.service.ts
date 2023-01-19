@@ -52,6 +52,19 @@ export class CartService {
     this.computeCartTotals();
   }
 
+  decrementQuantity(theCartItem: CartItem) {
+
+    theCartItem.quantidade--;
+
+    if(theCartItem.quantidade === 0) {
+      this.remove(theCartItem);
+    }
+    else {
+      this.computeCartTotals();
+    }
+
+  }
+
   computeCartTotals() {
 
     let totalPriceValue: number = 0;
@@ -65,8 +78,6 @@ export class CartService {
     // publicar os novos valores => todos subscribers irão receber os novos dados
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
-    localStorage.setItem('teste', JSON.stringify(totalPriceValue));
-    localStorage.setItem('teste2', JSON.stringify(totalQuantityValue));
 
     this.logCartData(totalPriceValue, totalQuantityValue);
   }
@@ -78,6 +89,18 @@ export class CartService {
     }
     console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`) // toFixed(2) = 2 casas decimais após a vírgula
     console.log('-----------');
+  }
+
+  remove(theCartItem: CartItem) {
+    // obter o indice do item no array
+    const itemIndex = this.cartItems.findIndex( tempCartItem => tempCartItem.id === theCartItem.id );
+
+    // se encontrado, remove o item do array, conforme o indice obtido (se não achar, retornará -1)
+    if(itemIndex > -1) {
+      this.cartItems.splice(itemIndex, 1) // removendo 1 item
+
+      this.computeCartTotals();
+    }
   }
 
 }
