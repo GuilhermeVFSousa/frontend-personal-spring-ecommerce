@@ -8,13 +8,13 @@ export class MyshopFormService {
 
   constructor() { }
 
-  getCrediCardMonths(): Observable<number[]> {
+  getCrediCardMonths(startMonth: number): Observable<number[]> {
 
     let data: number[] = [];
 
     // criar um array para listar os meses
     // iniciar um loop até o mês 12
-    const startMonth: number = new Date().getMonth() + 1; // neste método, inicia no mês 0
+
 
     for(let theMonth = startMonth; theMonth <= 12; theMonth++) {
       data.push(theMonth);

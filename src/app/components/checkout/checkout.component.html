@@ -286,11 +286,29 @@
 
           <div class="row">
             <div class="col-md-2">
+              <label>Ano Expiração</label>
+            </div>
+            <div class="col-md-9">
+              <div class="input-space">
+                <select
+                formControlName="expirationYear"
+                (change)="handleMonthsAndYears()"
+                style="width: 100px;">
+                  <option value="" disabled selected>Ano</option>
+                  <option *ngFor="let year of creditCardYears" value="{{ year }}">{{ year }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
               <label>Mês Expiração</label>
             </div>
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="expirationMonth" style="width: 100px;">
+                  <option value="" disabled selected>Mês</option>
                   <option *ngFor="let month of creditCardMonths" value="{{ month }}">
                     <span *ngIf="month < 10">0</span>{{ month }}
                   </option>
@@ -299,18 +317,7 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-2">
-              <label>Ano Expiração</label>
-            </div>
-            <div class="col-md-9">
-              <div class="input-space">
-                <select formControlName="expirationYear" style="width: 100px;">
-                  <option *ngFor="let year of creditCardYears" value="{{ year }}">{{ year }}</option>
-                </select>
-              </div>
-            </div>
-          </div>
+
         </div>
 
         <!-- order details -->

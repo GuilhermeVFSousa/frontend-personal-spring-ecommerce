@@ -58,7 +58,9 @@ export class CheckoutComponent implements OnInit {
     });
 
     // populando os meses do campo option do cartão de crédito
-    this.myshopFormService.getCrediCardMonths().subscribe(
+    const startMonth: number = new Date().getMonth() + 1; // neste método, inicia no mês 0
+
+    this.myshopFormService.getCrediCardMonths(startMonth).subscribe(
       data => {
         console.log(`Meses do Cartão de Crédito recuperados: ${JSON.stringify(data)}`);
         this.creditCardMonths = data;
@@ -87,6 +89,33 @@ export class CheckoutComponent implements OnInit {
     else {
       this.checkoutFormGroup.controls['billingAddress'].reset();
     }
+  }
+
+  handleMonthsAndYears() {
+
+    const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
+
+    const currentYear: number = new Date().getFullYear();
+    const selectedYear: number = Number(creditCardFormGroup?.value.expirationYear);
+
+    // se o ano atual for igual ao ano selecionado, começará com o mês atual
+
+    let startMonth: number;
+
+    if(currentYear === selectedYear) {
+      startMonth = new Date().getMonth() + 1; // o primeiro mês é 0
+    }
+    else {
+      startMonth =  1;
+    }
+
+    this.myshopFormService.getCrediCardMonths(startMonth).subscribe(
+      data => {
+
+        this.creditCardMonths =  data;
+        console.log(`Meses do Cartão de Crédito recuperados: ${JSON.stringify(data)}`);
+      }
+    );
   }
 
 }
