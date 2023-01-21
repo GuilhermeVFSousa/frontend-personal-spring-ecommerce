@@ -2,7 +2,7 @@
   <div class="section-content section-content-p30">
     <div class="container-fluid">
 
-      <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit">
+      <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
 
         <!-- customer form group-->
         <div formGroupName="customer" class="form-area">
@@ -55,8 +55,12 @@
             </div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="country">
-                  <option value="">To Do</option>
+                <select
+                formControlName="country"
+                (change)="getEstados('shippingAddress')">
+                  <option *ngFor="let pais of paises" [ngValue]="pais">
+                    {{ pais.nomePT }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -112,8 +116,12 @@
             </div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="state">
-                  <option value="">To Do</option>
+                <select
+                formControlName="state"
+                (change)="getCidades('shippingAddress')">
+                  <option *ngFor="let estado of shippingAddressEstados" [ngValue]="estado">
+                    {{ estado.nome }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -126,7 +134,9 @@
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="city">
-                  <option value="">To Do</option>
+                  <option *ngFor="let cidade of shippingAddressCidades" [ngValue]="cidade">
+                    {{ cidade.nome }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -153,8 +163,12 @@
             </div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="country">
-                  <option value="">To Do</option>
+                <select
+                formControlName="country"
+                (change)="getEstados('billingAddress')">
+                  <option *ngFor="let pais of paises" [ngValue]="pais">
+                    {{ pais.nomePT }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -210,8 +224,12 @@
             </div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="state">
-                  <option value="">To Do</option>
+                <select
+                formControlName="state"
+                (change)="getCidades('billingAddress')">
+                  <option *ngFor="let estado of billingAddressEstados" [ngValue]="estado">
+                    {{ estado.nome }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -224,7 +242,9 @@
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="city">
-                  <option value="">To Do</option>
+                  <option *ngFor="let cidade of billingAddressCidades" [ngValue]="cidade">
+                    {{ cidade.nome }}
+                  </option>
                 </select>
               </div>
             </div>
