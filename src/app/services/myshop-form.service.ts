@@ -1,12 +1,18 @@
+import { API_CONFIG } from './../config/api.config';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MyshopFormService {
 
-  constructor() { }
+  private coutriesUrl = `${API_CONFIG.baseUrl}/api/paises`;
+  private statesUrl = `${API_CONFIG.baseUrl}/api/estados`;
+  private citiesUrl = `${API_CONFIG.baseUrl}/api/cidades`;
+
+  constructor(private httpClient: HttpClient) { }
 
   getCrediCardMonths(startMonth: number): Observable<number[]> {
 
