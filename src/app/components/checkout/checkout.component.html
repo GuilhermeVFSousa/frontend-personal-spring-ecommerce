@@ -163,7 +163,7 @@
               <div class="input-space" style="width: 170px;">
                 <input
                 formControlName="zipCode"
-                type="number"
+                type="text"
                 maxlength="8"
                 oninput="this.value=this.value.replace(/[^\d]/,'')">
 
@@ -279,6 +279,14 @@
                     {{ pais.nomePT }}
                   </option>
                 </select>
+
+                <div *ngIf="billingAddressCountry?.invalid && (billingAddressCountry?.dirty || billingAddressCountry?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="billingAddressCountry?.errors.required">
+                    *País é obrigatório
+                  </div>
+
+                </div>
+
               </div>
             </div>
           </div>
@@ -290,6 +298,18 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="street" type="text">
+
+                <div *ngIf="billingAddressStreet?.invalid && (billingAddressStreet?.dirty || billingAddressStreet?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="billingAddressStreet?.errors.required || billingAddressStreet?.errors.notOnlyWhitespace ">
+                    *Rua é obrigatório
+                  </div>
+
+                  <div *ngIf="billingAddressStreet?.errors.minlength">
+                    *Rua precisa ter no mínimo 2 caracteres
+                  </div>
+
+                </div>
+
               </div>
             </div>
           </div>
@@ -301,6 +321,17 @@
             <div class="col-md-9">
               <div class="input-space" style="width: 100px;">
                 <input formControlName="houseNumber" type="text">
+
+                <div *ngIf="billingAddressHouseNumber?.invalid && (billingAddressHouseNumber?.dirty || billingAddressHouseNumber?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="billingAddressHouseNumber?.errors.required || billingAddressHouseNumber?.errors.notOnlyWhitespace ">
+                    *Número é obrigatório
+                  </div>
+
+                  <div *ngIf="billingAddressStreet?.errors.minlength">
+                    *Número precisa ter no mínimo 1 caracter
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -311,7 +342,23 @@
             </div>
             <div class="col-md-9">
               <div class="input-space" style="width: 170px;">
-                <input formControlName="zipCode" type="text">
+                <input
+                formControlName="zipCode"
+                type="text"
+                maxlength="8"
+                oninput="this.value=this.value.replace(/[^\d]/,'')">
+
+                <div *ngIf="billingAddressZipCode?.invalid && (billingAddressZipCode?.dirty || billingAddressZipCode?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="billingAddressZipCode?.errors.required || billingAddressZipCode?.errors.notOnlyWhitespace ">
+                    *CEP é obrigatório
+                  </div>
+
+                  <div *ngIf="billingAddressZipCode?.errors.minlength">
+                    *CEP precisa ter 8 caracteres
+                  </div>
+                </div>
+
+
               </div>
             </div>
           </div>
@@ -323,6 +370,18 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="district" type="text">
+
+                <div *ngIf="billingAddressDistrict?.invalid && (billingAddressDistrict?.dirty || billingAddressDistrict?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="billingAddressDistrict?.errors.required || billingAddressDistrict?.errors.notOnlyWhitespace ">
+                    *Bairro é obrigatório
+                  </div>
+
+                  <div *ngIf="billingAddressDistrict?.errors.minlength">
+                    *Bairro precisa ter no mínimo 2 caracteres
+                  </div>
+                </div>
+
+
               </div>
             </div>
           </div>
@@ -340,6 +399,13 @@
                     {{ estado.nome }}
                   </option>
                 </select>
+
+                <div *ngIf="billingAddressState?.invalid && (billingAddressState?.dirty || billingAddressState?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="billingAddressState?.errors.required">
+                    *Estado é obrigatório
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -355,9 +421,17 @@
                     {{ cidade.nome }}
                   </option>
                 </select>
+
+                <div *ngIf="billingAddressCity?.invalid && (billingAddressCity?.dirty || billingAddressCity?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="billingAddressCity?.errors.required">
+                    *Cidade é obrigatório
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
+
 
         </div>
 
@@ -462,7 +536,6 @@
         <div class="text-center">
           <button type="submit" class="btn btn-info"> Finalizar a Compra</button>
         </div>
-        <a routerLink="#">Teste</a>
       </form>
     </div>
   </div>

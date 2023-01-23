@@ -30,8 +30,6 @@ export class CheckoutComponent implements OnInit {
   shippingAddressCidades: Cidade[] = [];
   billingAddressCidades: Cidade[] = [];
 
-  pattern: string | RegExp;
-
   constructor(
     private myshopFormService: MyshopFormService,
     private formBuilder: FormBuilder,
@@ -55,13 +53,13 @@ export class CheckoutComponent implements OnInit {
         zipCode: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8), MyShopValidators.notOnlyWhitespace]),
       }),
       billingAddress: this.formBuilder.group({
-        street: [''],
-        houseNumber: [''],
-        district: [''],
-        city: [''],
-        state: [''],
-        country: [''],
-        zipCode: ['']
+        street: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+        houseNumber: new FormControl('', [Validators.required, Validators.minLength(1), MyShopValidators.notOnlyWhitespace]),
+        district: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+        city: new FormControl('', [Validators.required]),
+        state: new FormControl('', [Validators.required]),
+        country: new FormControl('', [Validators.required]),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8), MyShopValidators.notOnlyWhitespace]),
       }),
       creditCard: this.formBuilder.group({
         cardType: [''],
@@ -113,6 +111,16 @@ export class CheckoutComponent implements OnInit {
    get shippingAddressState() { return this.checkoutFormGroup.get('shippingAddress.state'); }
    get shippingAddressCountry() { return this.checkoutFormGroup.get('shippingAddress.country'); }
    get shippingAddressZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
+
+    // billing address form
+    get billingAddressStreet() { return this.checkoutFormGroup.get('billingAddress.street'); }
+    get billingAddressHouseNumber() { return this.checkoutFormGroup.get('billingAddress.houseNumber'); }
+    get billingAddressDistrict() { return this.checkoutFormGroup.get('billingAddress.district'); }
+    get billingAddressCity() { return this.checkoutFormGroup.get('billingAddress.city'); }
+    get billingAddressState() { return this.checkoutFormGroup.get('billingAddress.state'); }
+    get billingAddressCountry() { return this.checkoutFormGroup.get('billingAddress.country'); }
+    get billingAddressZipCode() { return this.checkoutFormGroup.get('billingAddress.zipCode'); }
+
 
 
   onSubmit() {
