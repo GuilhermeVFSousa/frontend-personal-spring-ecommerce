@@ -98,6 +98,14 @@
                     {{ pais.nomePT }}
                   </option>
                 </select>
+
+                <div *ngIf="shippingAddressCountry?.invalid && (shippingAddressCountry?.dirty || shippingAddressCountry?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="shippingAddressCountry?.errors.required">
+                    *País é obrigatório
+                  </div>
+
+                </div>
+
               </div>
             </div>
           </div>
@@ -109,6 +117,18 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="street" type="text">
+
+                <div *ngIf="shippingAddressStreet?.invalid && (shippingAddressStreet?.dirty || shippingAddressStreet?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="shippingAddressStreet?.errors.required || shippingAddressStreet?.errors.notOnlyWhitespace ">
+                    *Rua é obrigatório
+                  </div>
+
+                  <div *ngIf="shippingAddressStreet?.errors.minlength">
+                    *Rua precisa ter no mínimo 2 caracteres
+                  </div>
+
+                </div>
+
               </div>
             </div>
           </div>
@@ -120,6 +140,17 @@
             <div class="col-md-9">
               <div class="input-space" style="width: 100px;">
                 <input formControlName="houseNumber" type="text">
+
+                <div *ngIf="shippingAddressHouseNumber?.invalid && (shippingAddressHouseNumber?.dirty || shippingAddressHouseNumber?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="shippingAddressHouseNumber?.errors.required || shippingAddressHouseNumber?.errors.notOnlyWhitespace ">
+                    *Número é obrigatório
+                  </div>
+
+                  <div *ngIf="shippingAddressStreet?.errors.minlength">
+                    *Número precisa ter no mínimo 1 caracter
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -130,7 +161,23 @@
             </div>
             <div class="col-md-9">
               <div class="input-space" style="width: 170px;">
-                <input formControlName="zipCode" type="text">
+                <input
+                formControlName="zipCode"
+                type="number"
+                maxlength="8"
+                oninput="this.value=this.value.replace(/[^\d]/,'')">
+
+                <div *ngIf="shippingAddressZipCode?.invalid && (shippingAddressZipCode?.dirty || shippingAddressZipCode?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="shippingAddressZipCode?.errors.required || shippingAddressZipCode?.errors.notOnlyWhitespace ">
+                    *CEP é obrigatório
+                  </div>
+
+                  <div *ngIf="shippingAddressZipCode?.errors.minlength">
+                    *CEP precisa ter 8 caracteres
+                  </div>
+                </div>
+
+
               </div>
             </div>
           </div>
@@ -142,6 +189,18 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="district" type="text">
+
+                <div *ngIf="shippingAddressDistrict?.invalid && (shippingAddressDistrict?.dirty || shippingAddressDistrict?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="shippingAddressDistrict?.errors.required || shippingAddressDistrict?.errors.notOnlyWhitespace ">
+                    *Bairro é obrigatório
+                  </div>
+
+                  <div *ngIf="shippingAddressDistrict?.errors.minlength">
+                    *Bairro precisa ter no mínimo 2 caracteres
+                  </div>
+                </div>
+
+
               </div>
             </div>
           </div>
@@ -159,6 +218,13 @@
                     {{ estado.nome }}
                   </option>
                 </select>
+
+                <div *ngIf="shippingAddressState?.invalid && (shippingAddressState?.dirty || shippingAddressState?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="shippingAddressState?.errors.required">
+                    *Estado é obrigatório
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -174,6 +240,13 @@
                     {{ cidade.nome }}
                   </option>
                 </select>
+
+                <div *ngIf="shippingAddressCity?.invalid && (shippingAddressCity?.dirty || shippingAddressCity?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="shippingAddressCity?.errors.required">
+                    *Cidade é obrigatório
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>

@@ -30,6 +30,8 @@ export class CheckoutComponent implements OnInit {
   shippingAddressCidades: Cidade[] = [];
   billingAddressCidades: Cidade[] = [];
 
+  pattern: string | RegExp;
+
   constructor(
     private myshopFormService: MyshopFormService,
     private formBuilder: FormBuilder,
@@ -44,13 +46,13 @@ export class CheckoutComponent implements OnInit {
         email: new FormControl('',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]) // mascara para validar e-mail
       }),
       shippingAddress: this.formBuilder.group({
-        street: [''],
-        houseNumber: [''],
-        district: [''],
-        city: [''],
-        state: [''],
-        country: [''],
-        zipCode: ['']
+        street: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+        houseNumber: new FormControl('', [Validators.required, Validators.minLength(1), MyShopValidators.notOnlyWhitespace]),
+        district: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+        city: new FormControl('', [Validators.required]),
+        state: new FormControl('', [Validators.required]),
+        country: new FormControl('', [Validators.required]),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8), MyShopValidators.notOnlyWhitespace]),
       }),
       billingAddress: this.formBuilder.group({
         street: [''],
@@ -97,10 +99,21 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  // getters para exibir as mensagens de erro no HTML
+  // getters de acesso para exibir as mensagens de erro no HTML
+  // customer form
   get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
   get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
   get email() { return this.checkoutFormGroup.get('customer.email'); }
+
+   // shipping address form
+   get shippingAddressStreet() { return this.checkoutFormGroup.get('shippingAddress.street'); }
+   get shippingAddressHouseNumber() { return this.checkoutFormGroup.get('shippingAddress.houseNumber'); }
+   get shippingAddressDistrict() { return this.checkoutFormGroup.get('shippingAddress.district'); }
+   get shippingAddressCity() { return this.checkoutFormGroup.get('shippingAddress.city'); }
+   get shippingAddressState() { return this.checkoutFormGroup.get('shippingAddress.state'); }
+   get shippingAddressCountry() { return this.checkoutFormGroup.get('shippingAddress.country'); }
+   get shippingAddressZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode'); }
+
 
   onSubmit() {
 
