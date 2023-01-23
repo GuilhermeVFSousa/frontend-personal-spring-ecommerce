@@ -4,6 +4,8 @@ import { MyshopFormService } from '../../services/myshop-form.service';
 import { Pais } from '../../models/pais';
 import { Estado } from '../../models/estado';
 import { Cidade } from '../../models/cidade';
+import { ToastrService } from 'ngx-toastr';
+import { MyShopValidators } from '../../validators/my-shop-validators';
 
 @Component({
   selector: 'app-checkout',
@@ -30,14 +32,15 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private myshopFormService: MyshopFormService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private toast: ToastrService,) { }
 
   ngOnInit(): void {
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        firstName: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+        lastName: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
         email: new FormControl('',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]) // mascara para validar e-mail
       }),
       shippingAddress: this.formBuilder.group({
@@ -94,14 +97,30 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+  // getters para exibir as mensagens de erro no HTML
+  get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
+  get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
+  get email() { return this.checkoutFormGroup.get('customer.email'); }
+
   onSubmit() {
 
-    console.log("Manipulando o butão submit");
-    console.log(this.checkoutFormGroup.get('customer')?.value);
-    console.log("shippingAddress");
-    console.log(this.checkoutFormGroup.get('shippingAddress')?.value);
-    console.log("billingAddress");
-    console.log(this.checkoutFormGroup.get('billingAddress')?.value);
+
+
+    console.log("Manipulando o botão submit");
+
+    // validação ao enviar
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+      this.toast.warning('Verifique o preenchimento dos campos');
+    } else {
+      console.log(this.checkoutFormGroup.get('customer')?.value);
+      console.log("shippingAddress");
+      console.log(this.checkoutFormGroup.get('shippingAddress')?.value);
+      console.log("billingAddress");
+      console.log(this.checkoutFormGroup.get('billingAddress')?.value);
+    }
+
+
   }
 
   copyShippingAddressToBillingAddress(event: any) {

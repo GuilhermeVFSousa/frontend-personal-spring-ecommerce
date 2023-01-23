@@ -17,6 +17,8 @@ import { CartStatusComponent } from './components/cart-status/cart-status.compon
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(ptBr);
 
@@ -36,7 +38,12 @@ registerLocaleData(ptBr);
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: false,
+      progressBar: true
+    }),
   ],
   providers: [ProdutoService, {provide: LOCALE_ID, useValue: 'pt'}],
   bootstrap: [AppComponent]

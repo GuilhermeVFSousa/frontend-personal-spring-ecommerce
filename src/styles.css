@@ -1118,3 +1118,7 @@ ngb-pagination .page-item .page-link {
   background-color: #f05713;
 }
 
+.form-validation-error-msg {
+  font-size:12px;
+  color: red;
+}
