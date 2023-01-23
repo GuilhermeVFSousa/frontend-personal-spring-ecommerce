@@ -58,16 +58,16 @@ export class CheckoutComponent implements OnInit {
         district: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
         city: new FormControl('', [Validators.required]),
         state: new FormControl('', [Validators.required]),
-        country: new FormControl('', [Validators.required]),
-        zipCode: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8), MyShopValidators.notOnlyWhitespace]),
+        country: new FormControl('', [Validators.required,]),
+        zipCode: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8), MyShopValidators.notOnlyWhitespace,Validators.pattern('[0-9]{8}')]),
       }),
       creditCard: this.formBuilder.group({
-        cardType: [''],
-        nameOnCard: [''],
-        cardNumber: [''],
-        securityCode: [''],
-        expirationMonth: [''],
-        expirationYear: ['']
+        cardType: new FormControl('', [Validators.required]),
+        nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+        cardNumber: new FormControl('', [Validators.required, Validators.minLength(16), Validators.maxLength(16), MyShopValidators.notOnlyWhitespace, Validators.pattern('[0-9]{16}')]),
+        securityCode: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(3), MyShopValidators.notOnlyWhitespace, Validators.pattern('[0-9]{3}')]),
+        expirationMonth: new FormControl('', [Validators.required]),
+        expirationYear: new FormControl('', [Validators.required])
       })
     });
 
@@ -120,6 +120,14 @@ export class CheckoutComponent implements OnInit {
     get billingAddressState() { return this.checkoutFormGroup.get('billingAddress.state'); }
     get billingAddressCountry() { return this.checkoutFormGroup.get('billingAddress.country'); }
     get billingAddressZipCode() { return this.checkoutFormGroup.get('billingAddress.zipCode'); }
+
+    // credit card form
+    get cardType() { return this.checkoutFormGroup.get('creditCard.cardType') }
+    get nameOnCard() { return this.checkoutFormGroup.get('creditCard.nameOnCard') }
+    get cardNumber() { return this.checkoutFormGroup.get('creditCard.cardNumber') }
+    get securityCode() { return this.checkoutFormGroup.get('creditCard.securityCode') }
+    get expirationMonth() { return this.checkoutFormGroup.get('creditCard.expirationMonth') }
+    get expirationYear() { return this.checkoutFormGroup.get('creditCard.expirationYear') }
 
 
 

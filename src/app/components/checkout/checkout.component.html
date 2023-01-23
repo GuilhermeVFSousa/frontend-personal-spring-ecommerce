@@ -257,7 +257,7 @@
         <div class="input-space">
           <label class="au-checkbox">
             <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
-            <span class="au-checkmark"></span>Usar o Endereço de Envio como Endereçod e Cobrança
+            <span class="au-checkmark"></span>Usar o Endereço de Envio como Endereço de Cobrança
           </label>
         </div>
 
@@ -446,7 +446,7 @@
             </div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="cardType">
+                <select formControlName="cardType" required="true">
                   <option value="">Visa</option>
                   <option value="">MasterCard</option>
                 </select>
@@ -461,6 +461,16 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="nameOnCard" type="text">
+
+                <div *ngIf="nameOnCard?.invalid && (nameOnCard?.dirty || nameOnCard?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="nameOnCard?.errors.required || nameOnCard?.errors.notOnlyWhitespace">
+                    *Nome é obrigatório
+                  </div>
+                  <div *ngIf="nameOnCard?.errors.minlength">
+                    *Nome precisa ter no mínimo 2 caracteres
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -471,7 +481,21 @@
             </div>
             <div class="col-md-9">
               <div class="input-space">
-                <input formControlName="cardNumber" type="text">
+                <input
+                formControlName="cardNumber"
+                type="text"
+                maxlength="16"
+                oninput="this.value=this.value.replace(/[^\d]/,'')">
+
+                <div *ngIf="cardNumber?.invalid && (cardNumber?.dirty || cardNumber?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="cardNumber?.errors.required">
+                    *Número do Cartão é obrigatório
+                  </div>
+                  <div *ngIf="cardNumber?.errors.minlength || cardNumber?.errors.pattern">
+                    *Número do Cartão precisa ter no 16 digitos
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -482,7 +506,21 @@
             </div>
             <div class="col-md-9">
               <div class="input-space" style="width: 100px;">
-                <input formControlName="securityCode" type="text">
+                <input
+                formControlName="securityCode"
+                type="text"
+                maxlength="3"
+                oninput="this.value=this.value.replace(/[^\d]/,'')">
+
+                <div *ngIf="securityCode?.invalid && (securityCode?.dirty || securityCode?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="securityCode?.errors.required">
+                    *Número do Cartão é obrigatório
+                  </div>
+                  <div *ngIf="securityCode?.errors.minlength || securityCode?.errors.pattern">
+                    *CVV precisa ter no 3 digitos
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -500,6 +538,13 @@
                   <option value="" disabled selected>Ano</option>
                   <option *ngFor="let year of creditCardYears" value="{{ year }}">{{ year }}</option>
                 </select>
+
+                <div *ngIf="expirationYear?.invalid && (expirationYear?.dirty || expirationYear?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="expirationYear?.errors.required">
+                    *Ano Expiração é obrigatório
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -516,6 +561,13 @@
                     <span *ngIf="month < 10">0</span>{{ month }}
                   </option>
                 </select>
+
+                <div *ngIf="expirationMonth?.invalid && (expirationMonth?.dirty || expirationMonth?.touched)" class="form-validation-error-msg">
+                  <div *ngIf="expirationMonth?.errors.required">
+                    *Mês Expiração é obrigatório
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
