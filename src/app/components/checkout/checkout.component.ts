@@ -6,6 +6,7 @@ import { Estado } from '../../models/estado';
 import { Cidade } from '../../models/cidade';
 import { ToastrService } from 'ngx-toastr';
 import { MyShopValidators } from '../../validators/my-shop-validators';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -33,9 +34,12 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private myshopFormService: MyshopFormService,
     private formBuilder: FormBuilder,
-    private toast: ToastrService,) { }
+    private toast: ToastrService,
+    private cartService: CartService) { }
 
   ngOnInit(): void {
+
+    this.reviewCartDetails();
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
@@ -132,8 +136,6 @@ export class CheckoutComponent implements OnInit {
 
 
   onSubmit() {
-
-
 
     console.log("Manipulando o botão submit");
 
@@ -245,6 +247,17 @@ export class CheckoutComponent implements OnInit {
         // selecionar o primeiro item por default
         formGroup?.get('city')?.setValue(data[0]);
       }
+    );
+  }
+
+  reviewCartDetails() {
+    this.cartService.totalPrice.subscribe(
+      data => this.totalPrice = data
+    );
+
+    //subscribe para o totalQuantity do cart
+    this.cartService.totalQuantity.subscribe(
+      data => this.totalQuantity = data
     );
   }
 

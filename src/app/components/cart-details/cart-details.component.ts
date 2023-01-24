@@ -21,7 +21,7 @@ export class CartDetailsComponent implements OnInit {
 
   listCartDetails() {
 
-    // get a handle to the dart items
+    // get a handle to the cart items
     this.cartItems = this.cartService.cartItems
 
     // subscribe ao totalprice do cart
