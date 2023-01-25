@@ -3,7 +3,7 @@ import { Produto } from '../../model/produto';
 import { ProdutoService } from '../../services/produto.service';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../services/cart.service';
-import { CartItem } from '../../models/cart-item';
+import { CartItem } from '../../model/cart-item';
 
 @Component({
   selector: 'app-produto-details',
