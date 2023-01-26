@@ -145,10 +145,6 @@
                   <div *ngIf="shippingAddressHouseNumber?.errors.required || shippingAddressHouseNumber?.errors.notOnlyWhitespace ">
                     *Número é obrigatório
                   </div>
-
-                  <div *ngIf="shippingAddressStreet?.errors.minlength">
-                    *Número precisa ter no mínimo 1 caracter
-                  </div>
                 </div>
 
               </div>
@@ -447,8 +443,8 @@
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="cardType" required="true">
-                  <option value="">Visa</option>
-                  <option value="">MasterCard</option>
+                  <option>Visa</option>
+                  <option>MasterCard</option>
                 </select>
               </div>
             </div>
@@ -491,7 +487,7 @@
                   <div *ngIf="cardNumber?.errors.required">
                     *Número do Cartão é obrigatório
                   </div>
-                  <div *ngIf="cardNumber?.errors.minlength || cardNumber?.errors.pattern">
+                  <div *ngIf="cardNumber?.errors.pattern">
                     *Número do Cartão precisa ter no 16 digitos
                   </div>
                 </div>
@@ -516,7 +512,7 @@
                   <div *ngIf="securityCode?.errors.required">
                     *Número do Cartão é obrigatório
                   </div>
-                  <div *ngIf="securityCode?.errors.minlength || securityCode?.errors.pattern">
+                  <div *ngIf="securityCode?.errors.pattern">
                     *CVV precisa ter no 3 digitos
                   </div>
                 </div>

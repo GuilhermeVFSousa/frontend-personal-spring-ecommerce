@@ -7,6 +7,12 @@ import { Cidade } from '../../models/cidade';
 import { ToastrService } from 'ngx-toastr';
 import { MyShopValidators } from '../../validators/my-shop-validators';
 import { CartService } from '../../services/cart.service';
+import { CheckoutService } from '../../services/checkout.service';
+import { Router } from '@angular/router';
+import { Order } from '../../models/order';
+import { OrderItem } from '../../models/order-item';
+import { Purchase } from '../../models/purchase';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -35,7 +41,9 @@ export class CheckoutComponent implements OnInit {
     private myshopFormService: MyshopFormService,
     private formBuilder: FormBuilder,
     private toast: ToastrService,
-    private cartService: CartService) { }
+    private cartService: CartService,
+    private checkoutService: CheckoutService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -140,19 +148,96 @@ export class CheckoutComponent implements OnInit {
     console.log("Manipulando o botão submit");
 
     // validação ao enviar
-    if (this.checkoutFormGroup.invalid) {
+    if (!this.checkoutFormGroup.valid) {
       this.checkoutFormGroup.markAllAsTouched();
+      this.checkoutFormGroup.status;
       this.toast.warning('Verifique o preenchimento dos campos');
-    } else {
-      console.log(this.checkoutFormGroup.get('customer')?.value);
-      console.log("shippingAddress");
-      console.log(this.checkoutFormGroup.get('shippingAddress')?.value);
-      console.log("billingAddress");
-      console.log(this.checkoutFormGroup.get('billingAddress')?.value);
+      alert(`VERIFICAR E ARRUMAR O VALIDATION`);
+      console.log(this.checkoutFormGroup.valid);
+      console.log(this.checkoutFormGroup.status);
+      console.error();
+      return;
     }
 
+    // config order
+    let order = new Order();
+    order.totalPrice = this.totalPrice;
+    order.totalQuantity = this.totalQuantity;
+
+    // get cart items
+    const cartItems = this.cartService.cartItems;
+
+    // criar orderItems a partir do cartItems
+    // caminho longo -----------------
+    /*let orderItems: OrderItem[] = [];
+      for (let i = 0; i < cartItems.length; i++) {
+      orderItems[i] = new OrderItem(cartItems[i]);
+    }*/
+    // caminho curto -----------------
+    let orderItems: OrderItem[] = cartItems.map(
+      tempCartItem => new OrderItem(tempCartItem)
+    );
+
+    // config purchase
+    let purchase = new Purchase();
+
+    // popular purchase - customer
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+
+    // popular purchase - shipping address
+    purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingState: Estado = JSON.parse(JSON.stringify(purchase.shippingAddress.state));
+    const shippingCountry: Pais = JSON.parse(JSON.stringify(purchase.shippingAddress.country));
+    const shippingCity: Cidade = JSON.parse(JSON.stringify(purchase.shippingAddress.city));
+    purchase.shippingAddress.country = shippingCountry.nomePT;
+    purchase.shippingAddress.state = shippingState.nome;
+    purchase.shippingAddress.city = shippingCity.nome;
+
+    // popular purchase -billing address
+    purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
+    const billingState: Estado = JSON.parse(JSON.stringify(purchase.billingAddress.state));
+    const billingCountry: Pais = JSON.parse(JSON.stringify(purchase.billingAddress.country));
+    const billingCity: Cidade = JSON.parse(JSON.stringify(purchase.billingAddress.city));
+    purchase.billingAddress.country = billingCountry.nomePT;
+    purchase.billingAddress.state = billingState.nome;
+    purchase.billingAddress.city = billingCity.nome;
+
+    // popular purchase - order e orderItems
+    purchase.order = order;
+    purchase.orderItems = orderItems;
+
+    // chamar a API REST via CheckoutService
+    this.checkoutService.placeOrder(purchase).subscribe({
+        next: response => {
+          alert(`Seu pedido foi recebido.\nNumero de rastreamento: ${response.orderTrackingNumber}`);
+          this.toast.success(`Seu pedido foi recebido.\nNumero de rastreamento: ${response.orderTrackingNumber}`);
+
+          // resetar o carrinho
+          this.resetCart();
+
+        },
+        error: err => {
+          alert(`Ocorreu um erro: ${err.message}`);
+          this.toast.error(`Ocorreu um erro: ${err.message}`);
+        }
+    });
 
   }
+
+  resetCart() {
+    // resetar os dados do carrinho
+    this.cartService.cartItems = [];
+    this.cartService.totalPrice.next(0);
+    this.cartService.totalQuantity.next(0);
+
+    // resetar o formulário
+    this.checkoutFormGroup.reset();
+
+    // navegar até a página de produtos
+    this.router.navigateByUrl("/produtos");
+
+  }
+
 
   copyShippingAddressToBillingAddress(event: any) {
 
