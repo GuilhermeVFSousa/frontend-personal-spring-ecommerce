@@ -23,7 +23,12 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
 // OKTA
-import { OktaAuthModule, OktaCallbackComponent, OKTA_CONFIG } from '@okta/okta-angular';
+import {
+  OKTA_CONFIG,
+  OktaAuthModule,
+  OktaCallbackComponent
+} from '@okta/okta-angular';
+
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig from 'src/app/config/my-app-config';
 
@@ -57,9 +62,14 @@ registerLocaleData(ptBr);
     ToastrModule.forRoot({
       closeButton: false,
       progressBar: true
-    })
+    }),
+    OktaAuthModule
   ],
-  providers: [ProdutoService, {provide: LOCALE_ID, useValue: 'pt'}],
+  providers: [
+    ProdutoService,
+    { provide: LOCALE_ID, useValue: 'pt'},
+    { provide: OKTA_CONFIG, useValue: { oktaAuth } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
