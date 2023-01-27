@@ -22,6 +22,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
+// OKTA
+import { OktaAuthModule, OktaCallbackComponent, OKTA_CONFIG } from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
+import myAppConfig from 'src/app/config/my-app-config';
+
+const oktaConfig = myAppConfig.oidc;
+
+const oktaAuth = new OktaAuth(oktaConfig);
+
+
 registerLocaleData(ptBr);
 
 @NgModule({
@@ -47,7 +57,7 @@ registerLocaleData(ptBr);
     ToastrModule.forRoot({
       closeButton: false,
       progressBar: true
-    }),
+    })
   ],
   providers: [ProdutoService, {provide: LOCALE_ID, useValue: 'pt'}],
   bootstrap: [AppComponent]
