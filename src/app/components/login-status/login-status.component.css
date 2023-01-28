@@ -1,12 +1,12 @@
 .security-btn {
   position:relative;
   margin-top: 7px;
+  margin-right: 10px;
   padding: 0 5px 0px 5px;
   right:0;
   height: 30px;
   min-width:45px;
   color:tomato;
-  border:1px solid #b1491a;
   -webkit-border-radius:3px;
   -moz-border-radius:3px;
   border-radius:7px;
