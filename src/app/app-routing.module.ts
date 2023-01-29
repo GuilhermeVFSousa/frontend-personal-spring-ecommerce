@@ -8,6 +8,7 @@ import { OktaAuthGuard, OktaCallbackComponent } from '@okta/okta-angular';
 import { LoginComponent } from './components/login/login.component';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OktaAuth } from '@okta/okta-auth-js';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
   //Usando o injector para acessar qualquer serviço disponibilizado dentro da nossa aplicação
@@ -18,9 +19,11 @@ function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 }
 
 const routes: Routes = [
-  //protect route
+  //protect routes
+  {path: 'historico-compras', component: OrderHistoryComponent, canActivate: [OktaAuthGuard], data: {onAuthRequired: sendToLoginPage}},
   {path: 'membros', component: MembersPageComponent, canActivate: [OktaAuthGuard], data: {onAuthRequired: sendToLoginPage}},
 
+  //free routes
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
 
