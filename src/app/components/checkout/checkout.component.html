@@ -55,28 +55,18 @@
             </div>
           </div>
 
+          <!-- Email será o do login Okta-->
           <div class="row">
             <div class="col-md-2">
               <label>E-mail</label>
             </div>
             <div class="col-md-9">
               <div class="input-space">
-                <input formControlName="email" type="text">
-
-                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="form-validation-error-msg">
-                  <div *ngIf="email?.errors.required">
-                    *E-mail é obrigatório
-                  </div>
-
-                  <div *ngIf="email?.errors.pattern">
-                    *Informe um e-mail válido
-                  </div>
-
+                <span style="font-weight: bold;"> {{ theEmailRead }} </span>
                 </div>
 
               </div>
             </div>
-          </div>
 
         </div>
 

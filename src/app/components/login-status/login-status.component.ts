@@ -43,6 +43,7 @@ export class LoginStatusComponent implements OnInit {
 
         // armazenar o e-mail em localStorage
         this.storage.setItem('userEmail', JSON.stringify(theEmail));
+        this.storage.setItem('userName', JSON.stringify(this.userFullName));
 
       }
     )
