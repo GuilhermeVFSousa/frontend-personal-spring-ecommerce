@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
 
-  {path: 'checkout', component: CheckoutComponent},
+  {path: 'checkout', component: CheckoutComponent, canActivate: [OktaAuthGuard], data: {onAuthRequired: sendToLoginPage}},
   {path: 'cart-details', component: CartDetailsComponent},
   {path: 'produtos/:id', component: ProdutoDetailsComponent},
   {path: 'search/:keyword', component: ProdutoListComponent},
