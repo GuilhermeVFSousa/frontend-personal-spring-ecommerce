@@ -19,7 +19,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   private async hadleAccess(req: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<any>> {
 
     // Passar o token somente para os endpoints com secutiry no back-end
-    const securedEndpoints = [`${API_CONFIG}/api/orders`];
+    const securedEndpoints = [API_CONFIG.baseUrl+'/api/orders'];
 
     // verificar se o URL navegado é igual ao securedEndpoint
     if(securedEndpoints.some(url => req.urlWithParams.includes(url))) {
