@@ -1,15 +1,15 @@
-import { API_CONFIG } from './../config/api.config';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Purchase } from '../models/purchase';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
 
-  private purchaseUrl = `${API_CONFIG.baseUrl}/api/checkout/purchase`;
+  private purchaseUrl = `${environment.baseUrl}/api/checkout/purchase`;
 
   constructor(private httpClient: HttpClient) { }
 

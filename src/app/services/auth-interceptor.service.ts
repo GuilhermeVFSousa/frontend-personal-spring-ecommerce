@@ -1,9 +1,10 @@
-import { API_CONFIG } from './../config/api.config';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { from, lastValueFrom, Observable } from 'rxjs';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { OKTA_AUTH } from '@okta/okta-angular';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   private async hadleAccess(req: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<any>> {
 
     // Passar o token somente para os endpoints com secutiry no back-end
-    const securedEndpoints = [API_CONFIG.baseUrl+'/api/orders'];
+    const securedEndpoints = [environment.baseUrl+'/api/orders'];
 
     // verificar se o URL navegado é igual ao securedEndpoint
     if(securedEndpoints.some(url => req.urlWithParams.includes(url))) {

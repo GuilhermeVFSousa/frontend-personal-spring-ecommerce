@@ -1,19 +1,19 @@
-import { API_CONFIG } from './../config/api.config';
 import { Injectable } from '@angular/core';
 import { Observable, of, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Pais } from '../models/pais';
 import { Estado } from '../models/estado';
 import { Cidade } from '../models/cidade';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MyshopFormService {
 
-  private paisesUrl = `${API_CONFIG.baseUrl}/api/paises`;
-  private estadosUrl = `${API_CONFIG.baseUrl}/api/estados`;
-  private cidadesUrl = `${API_CONFIG.baseUrl}/api/cidades`;
+  private paisesUrl = `${environment.baseUrl}/api/paises`;
+  private estadosUrl = `${environment.baseUrl}/api/estados`;
+  private cidadesUrl = `${environment.baseUrl}/api/cidades`;
 
   constructor(private httpClient: HttpClient) { }
 
