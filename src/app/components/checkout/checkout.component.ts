@@ -13,6 +13,8 @@ import { Order } from '../../models/order';
 import { OrderItem } from '../../models/order-item';
 import { Purchase } from '../../models/purchase';
 import { delay } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { PaymentInfo } from '../../models/payment-info';
 
 @Component({
   selector: 'app-checkout',
@@ -41,6 +43,13 @@ export class CheckoutComponent implements OnInit {
 
   theEmailRead: string = this.storage.getItem('userEmail').slice(1, length - 1);
 
+  // initialize Stripe API
+  stripe = Stripe(environment.stripePublishableKey);
+
+  paymentInfo: PaymentInfo = new PaymentInfo();
+  cardElement: any;
+  displayError: any = "";
+
   constructor(
     private myshopFormService: MyshopFormService,
     private formBuilder: FormBuilder,
@@ -50,6 +59,9 @@ export class CheckoutComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+
+    // setup Stripe payment form
+    this.setupStripePaymentForm();
 
     this.reviewCartDetails();
 
@@ -80,15 +92,18 @@ export class CheckoutComponent implements OnInit {
         zipCode: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8), MyShopValidators.notOnlyWhitespace,Validators.pattern('[0-9]{8}')]),
       }),
       creditCard: this.formBuilder.group({
+        /*
         cardType: new FormControl('', [Validators.required]),
         nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
         cardNumber: new FormControl('', [Validators.required, Validators.minLength(16), Validators.maxLength(16), MyShopValidators.notOnlyWhitespace, Validators.pattern('[0-9]{16}')]),
         securityCode: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(3), MyShopValidators.notOnlyWhitespace, Validators.pattern('[0-9]{3}')]),
         expirationMonth: new FormControl('', [Validators.required]),
         expirationYear: new FormControl('', [Validators.required])
+        */
       })
     });
 
+    /*
     // populando os meses do campo option do cartão de crédito
     const startMonth: number = new Date().getMonth() + 1; // neste método, inicia no mês 0
 
@@ -106,6 +121,7 @@ export class CheckoutComponent implements OnInit {
         this.creditCardYears = data;
       }
     );
+    */
 
     // populando paises;
     this.myshopFormService.getPaises().subscribe(
@@ -339,6 +355,10 @@ export class CheckoutComponent implements OnInit {
         formGroup?.get('city')?.setValue(data[0]);
       }
     );
+  }
+
+  setupStripePaymentForm() {
+
   }
 
   reviewCartDetails() {
