@@ -23,6 +23,8 @@ import { PaymentInfo } from '../../models/payment-info';
 })
 export class CheckoutComponent implements OnInit {
 
+  isDisable: boolean = false;
+
   checkoutFormGroup!: FormGroup;
 
   totalPrice: number = 0;
@@ -240,6 +242,9 @@ export class CheckoutComponent implements OnInit {
     // - place order
 
     if(!this.checkoutFormGroup.invalid && this.displayError.textContent === "") {
+
+      this.isDisable = true;
+
       this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe(
         (paymentIntentResponse) => {
           this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
@@ -265,6 +270,7 @@ export class CheckoutComponent implements OnInit {
               if(result.error) {
                 // informar o customer que houve um erro
                 this.toast.error(`Ocorreu um erro: ${result.error.message}`);
+                this.isDisable = false;
               } else {
                 // chamar a API REST via CheckoutService
                 this.checkoutService.placeOrder(purchase).subscribe({
@@ -273,9 +279,12 @@ export class CheckoutComponent implements OnInit {
 
                     // resetar o cart
                     this.resetCart();
+
+                    this.isDisable = false;
                   },
                   error: (err: any) => {
                     this.toast.error(`Ocorreu um erro: ${err.message}`);
+                    this.isDisable = false;
                   }
                 });
               }
@@ -300,7 +309,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutFormGroup.reset();
 
     // navegar até a página de produtos
-    this.router.navigateByUrl("/produtos");
+    this.router.navigateByUrl("/historico-compras");
 
   }
 

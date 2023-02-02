@@ -451,7 +451,14 @@
 
         <!-- submit button-->
         <div class="text-center">
-          <button type="submit" class="btn btn-info"> Finalizar a Compra</button>
+          <button type="submit" class="btn btn-info" [disabled]="isDisable">
+            Finalizar a Compra
+            <span *ngIf="isDisable" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          </button>
+
+        </div>
+        <div *ngIf="isDisable" class="text-center mt-4">
+          <app-progressbar-config></app-progressbar-config>
         </div>
       </form>
     </div>

@@ -12,7 +12,7 @@ import { registerLocaleData } from '@angular/common';
 import { ProdutoCategoriaMenuComponent } from './components/produto-categoria-menu/produto-categoria-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProdutoDetailsComponent } from './components/produto-details/produto-details.component'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
@@ -34,6 +34,7 @@ import myAppConfig from 'src/app/config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { ProgressbarConfigComponent } from './components/progressbar-config/progressbar-config.component';
 
 const oktaConfig = myAppConfig.oidc;
 
@@ -55,7 +56,8 @@ registerLocaleData(ptBr);
     LoginComponent,
     LoginStatusComponent,
     MembersPageComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    ProgressbarConfigComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +74,7 @@ registerLocaleData(ptBr);
   ],
   providers: [
     ProdutoService,
+    NgbProgressbarModule,
     { provide: LOCALE_ID, useValue: 'pt'},
     { provide: OKTA_CONFIG, useValue: { oktaAuth } },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
