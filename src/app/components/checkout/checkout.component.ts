@@ -228,21 +228,27 @@ export class CheckoutComponent implements OnInit {
     purchase.order = order;
     purchase.orderItems = orderItems;
 
-    // chamar a API REST via CheckoutService
-    this.checkoutService.placeOrder(purchase).subscribe({
-        next: response => {
-          alert(`Seu pedido foi recebido.\nNumero de rastreamento: ${response.orderTrackingNumber}`);
-          this.toast.success(`Seu pedido foi recebido.\nNumero de rastreamento: ${response.orderTrackingNumber}`);
+    // calcular payment info
+    this.paymentInfo.amount = this.totalPrice * 100;
+    this.paymentInfo.currency = "BRL";
 
-          // resetar o carrinho
-          this.resetCart();
+    // se o formulário for válido então
+    // - crie o payment intent
+    // - confirmar card payment
+    // - place order
 
-        },
-        error: err => {
-          alert(`Ocorreu um erro: ${err.message}`);
-          this.toast.error(`Ocorreu um erro: ${err.message}`);
+    if(!this.checkoutFormGroup.invalid && this.displayError.textContent === "") {
+      this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe(
+        (paymentIntentResponse) => {
+          this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
+            {
+              payment_method: {
+                card: this.cardElement
+              }
+            })
         }
-    });
+      );
+    }
 
   }
 
