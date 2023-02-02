@@ -229,8 +229,10 @@ export class CheckoutComponent implements OnInit {
     purchase.orderItems = orderItems;
 
     // calcular payment info
-    this.paymentInfo.amount = this.totalPrice * 100;
+    this.paymentInfo.amount = Math.round(this.totalPrice * 100);
     this.paymentInfo.currency = "BRL";
+
+    console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
 
     // se o formulário for válido então
     // - crie o payment intent
@@ -281,6 +283,7 @@ export class CheckoutComponent implements OnInit {
     this.cartService.cartItems = [];
     this.cartService.totalPrice.next(0);
     this.cartService.totalQuantity.next(0);
+    this.storage.removeItem('cartItems');
 
     // resetar o formulário
     this.checkoutFormGroup.reset();
