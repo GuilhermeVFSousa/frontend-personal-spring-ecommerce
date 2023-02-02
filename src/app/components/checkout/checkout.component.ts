@@ -245,9 +245,33 @@ export class CheckoutComponent implements OnInit {
               payment_method: {
                 card: this.cardElement
               }
+            },
+            {
+              handleActions: false
+            }).then((result: any) => {
+              if(result.error) {
+                // informar o customer que houve um erro
+                this.toast.error(`Ocorreu um erro: ${result.error.message}`);
+              } else {
+                // chamar a API REST via CheckoutService
+                this.checkoutService.placeOrder(purchase).subscribe({
+                  next: (response: any) => {
+                    this.toast.success(`Sua compra foi recebida!\nNúmero de rastreamento: ${response.orderTrackingNumber}`);
+
+                    // resetar o cart
+                    this.resetCart();
+                  },
+                  error: (err: any) => {
+                    this.toast.error(`Ocorreu um erro: ${err.message}`);
+                  }
+                });
+              }
             })
         }
       );
+    } else {
+      this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
 
   }
