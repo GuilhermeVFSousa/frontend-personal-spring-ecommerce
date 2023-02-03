@@ -1,15 +1,16 @@
-<div class="login-status-header">
+<div *ngIf="!isAuthenticated" ngbDropdown class="d-inline-block">
+  <button type="button" class="btn btn-light" id="dropdownLogin" ngbDropdownToggle routerLink="/login">
+    <i class="fa-solid fa-user"></i> <span>&nbsp; &nbsp; Login &nbsp; &nbsp; </span>
+  </button>
+</div>
 
-  <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
-    Bem-vindo {{ userFullName }}!
+<div *ngIf="isAuthenticated && userFullName" ngbDropdown class="d-inline-block">
+  <button type="button" class="btn btn-light" id="dropdownLogin" ngbDropdownToggle>
+    <i class="fa-solid fa-user"></i> {{ userFullName }}
+  </button>
+  <div ngbDropdownMenu aria-labelledby="dropdownLogin">
+    <button *ngIf="isAuthenticated" routerLink="/historico-compras" ngbDropdownItem>Minhas Compras</button>
+    <button *ngIf="isAuthenticated" routerLink="/membros" ngbDropdownItem>Membros</button>
+    <button *ngIf="isAuthenticated" (click)="logout()" ngbDropdownItem><i class="fa-sharp fa-solid fa-right-from-bracket"></i> Sair</button>
   </div>
-
-  <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn">Login</button>
-
-  <button *ngIf="isAuthenticated" (click)="logout()" class="security-btn">Sair</button>
-
-  <button *ngIf="isAuthenticated" routerLink="/membros"class="security-btn ml-3">Membros</button>
-
-  <button *ngIf="isAuthenticated" routerLink="/historico-compras"class="security-btn ml-3">Compras</button>
-
 </div>

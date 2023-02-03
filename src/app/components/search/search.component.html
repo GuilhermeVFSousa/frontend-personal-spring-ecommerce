@@ -1,10 +1,17 @@
 <div class="form-header">
-  <input
+<form class="container-fluid">
+  <div class="input-group">
+    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+    <input
     #myInput
-    class="au-input au-input-xl mr-1"
+    type="text"
+    class="form-control"
+    placeholder="Pesquise pelo produto..."
+    aria-describedby="basic-addon1"
     (keyup.enter)="(doSearch(myInput.value))"
-    placeholder="Pesquise pelo produto..."/>
-    <a (click)="(doSearch(myInput.value))">
-      <i class="fa-solid fa-magnifying-glass mt-2" style="font-size: 25px; color: #fff;cursor: pointer;"></i>
-    </a>
+    >
+
+  </div>
+</form>
+<button (click)="(doSearch(myInput.value))" class="search-btn">Buscar</button>
 </div>

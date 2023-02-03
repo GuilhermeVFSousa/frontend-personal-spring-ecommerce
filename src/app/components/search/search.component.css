@@ -1,0 +1,13 @@
+.search-btn {
+  position:relative;
+  padding: 0 5px 0px 5px;
+  height: 38px;
+  min-width:55px;
+  border: solid 1px;
+  border-color: rgb(184, 184, 184);
+  color:tomato;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:7px;
+  background:#ffffff
+}

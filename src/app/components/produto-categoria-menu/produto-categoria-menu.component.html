@@ -1,13 +1,12 @@
-<div class="menu-sidebar-content js-scrollbar1">
-  <nav class="navbar-sidebar">
-    <ul class="list-unstyled navbar-list">
-      <li *ngFor="let element of produtoCategorias">
+<div ngbDropdown class="d-inline-block">
+    <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
+      Categorias
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button *ngFor="let element of produtoCategorias" ngbDropdownItem routerLink="/categoria/{{ element.id }}/{{ element.categoriaNome}}">{{ element.categoriaNome }}</button>
+    </div>
+  </div>
 
-        <a routerLink="/categoria/{{ element.id }}/{{ element.categoriaNome}}" routerLinkActive="active-link">
-          {{ element.categoriaNome }}
-        </a>
 
-      </li>
-    </ul>
-  </nav>
-</div>
+
+
